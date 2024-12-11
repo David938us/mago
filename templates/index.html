@@ -139,5 +139,37 @@
             <a href="#">Privacy Policy</a>
         </footer>
     </div>
+    
+<script>
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent default form submission
+
+        // Retrieve form data
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        // Send the data to the backend
+        fetch('https://your-backend.com/submit', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, password })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text(); // Assuming the backend returns plain text
+        })
+        .then(data => {
+            alert('Form submitted successfully: ' + data);
+        })
+        .catch(error => {
+            console.error('There was a problem with the submission:', error);
+            alert('Failed to submit the form.');
+        });
+    });
+</script>
 </body>
 </html>
