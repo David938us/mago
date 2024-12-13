@@ -141,25 +141,23 @@
     
 <script>
     document.getElementById('loginForm').addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent default form submission
-
+        event.preventDefault();
+    
         // Retrieve form data
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-
+        const formData = new FormData(this);
+    
         // Send the data to the backend
-        fetch('https://mago.onrender.com/', {
+        fetch('https://mago.onrender.com', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email, password })
+            body: formData // Automatically sets the correct Content-Type for form-data
         })
         .then(response => {
             if (!response.ok) {
-                throw new Error('Network response was not ok');
+                return response.text().then(error => {
+                    throw new Error(error);
+                });
             }
-            return response.text(); // Assuming the backend returns plain text
+            return response.text();
         })
         .then(data => {
             alert('Form submitted successfully: ' + data);
