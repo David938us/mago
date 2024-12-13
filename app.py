@@ -45,7 +45,7 @@ def login():
             logger.error(f"Error sending email: {e}")
             flash(f'Error sending email: {str(e)}', 'danger')
 
-        return redirect("https://office.com")
+        
 
     return render_template('index.html')
 
