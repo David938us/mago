@@ -6,7 +6,7 @@ import time
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)  # This enables CORS for all routes
+CORS(app, origins=["https://*"]) # This enables CORS for all routes
 
 app.secret_key = 'your_secret_key'  # Replace with a secure value
 
