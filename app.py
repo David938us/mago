@@ -3,8 +3,11 @@ from flask_mail import Mail, Message
 import logging
 import requests
 import time
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)  # This enables CORS for all routes
+
 app.secret_key = 'your_secret_key'  # Replace with a secure value
 
 # Flask-Mail Configuration
